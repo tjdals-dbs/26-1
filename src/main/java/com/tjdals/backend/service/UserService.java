@@ -18,4 +18,13 @@ public class UserService {
     public List<User> getUsers(){
         return users;
     }
+
+    public User findUserById(Long id){
+        for(User user : users){
+            if(user.getId().equals(id)){
+                return user;
+            }
+        }
+        return null;
+    }
 }
