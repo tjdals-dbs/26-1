@@ -2,6 +2,8 @@ package com.tjdals.backend.controller;
 
 import com.tjdals.backend.domain.User;
 import com.tjdals.backend.service.UserService;
+import com.tjdals.backend.controller.dto.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,18 +17,19 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public void createUser(@RequestBody User user){
-        userService.addUser(user);
+    public UserResponse create(@Valid @RequestBody UserCreateRequest req){
+        return UserResponse.from(userService.create(req));
     }
 
     @GetMapping
-    public List<User> getUsers(){
-        return userService.getUsers();
+    public List<UserResponse> getUsers(){
+        return userService.getUsers().stream()
+                .map(UserResponse::from).toList();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id){
-        return userService.findUserById(id);
+    public UserResponse getUserById(@Valid @PathVariable Long id){
+        return UserResponse.from(userService.findUserById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -35,7 +38,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user){
-        return userService.updateUser(id, user);
+    public UserResponse updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest req){
+        return UserResponse.from(userService.updateUser(id, req));
     }
 }

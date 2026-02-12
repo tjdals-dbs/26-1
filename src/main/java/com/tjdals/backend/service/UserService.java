@@ -2,12 +2,14 @@ package com.tjdals.backend.service;
 
 import com.tjdals.backend.domain.User;
 import com.tjdals.backend.repository.UserRepository;
+import com.tjdals.backend.controller.dto.UserCreateRequest;
+import com.tjdals.backend.controller.dto.UserUpdateRequest;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-
-
 
 import java.util.List;
 
@@ -17,8 +19,11 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public void addUser(User user){
-        userRepository.save(user);
+    public User create(UserCreateRequest req){
+        User user = new User();
+        user.setName(req.name());
+        user.setEmail(req.email());
+        return userRepository.save(user);
     }
 
     public List<User> getUsers(){
@@ -37,13 +42,12 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public User updateUser(Long id, User newUser){
+    public User updateUser(Long id, UserUpdateRequest req){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        user.setName(newUser.getName());
-        user.setEmail(newUser.getEmail());
-
+        user.setName(req.name());
+        user.setEmail(req.email());
         return userRepository.save(user);
     }
 }
