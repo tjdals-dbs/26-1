@@ -1,0 +1,26 @@
+= Backend API Docs
+:toc: left
+:toclevels: 2
+:snippets: build/generated-snippets
+
+== Users
+
+=== Create User
+include::{snippets}/users-create/http-request.adoc[]
+include::{snippets}/users-create/http-response.adoc[]
+
+=== List Users
+include::{snippets}/users-list/http-request.adoc[]
+include::{snippets}/users-list/http-response.adoc[]
+
+=== Get User
+include::{snippets}/users-get/http-request.adoc[]
+include::{snippets}/users-get/http-response.adoc[]
+
+=== Update User
+include::{snippets}/users-update/http-request.adoc[]
+include::{snippets}/users-update/http-response.adoc[]
+
+=== Delete User
+include::{snippets}/users-delete/http-request.adoc[]
+include::{snippets}/users-delete/http-response.adoc[]
